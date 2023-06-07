@@ -1,4 +1,4 @@
-import "~/assets/css/globals.css";
+import "~/assets/css/index.css";
 import { Open_Sans } from "next/font/google";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
@@ -15,12 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body
-        className="text-base leading-[22px] text-ablack"
-        style={openSans.style}
-      >
-        {children}
-      </body>
+      <body style={openSans.style}>{children}</body>
     </html>
   );
 }
