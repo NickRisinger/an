@@ -1,5 +1,7 @@
 import "~/assets/css/index.css";
 import { Open_Sans } from "next/font/google";
+import Header from "~/components/Header";
+import { cookies } from "next/headers";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -13,9 +15,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const city = cookieStore.get("city");
+
   return (
     <html lang="ru">
-      <body style={openSans.style}>{children}</body>
+      <body style={openSans.style}>
+        <Header cityCookie={city?.value || "Кострома"} />
+        {children}
+      </body>
     </html>
   );
 }
