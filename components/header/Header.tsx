@@ -1,16 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import CityConfirmPopup from "./CityConfirmPopup";
 import CitySelectionModal from "./CitySelectionModal";
+import { useLocalStorage } from "usehooks-ts";
 
 interface IHeaderProps {
   cityCookie: string;
 }
 
 const Header: FC<IHeaderProps> = ({ cityCookie }) => {
+  const [userCity, setUserCity] = useLocalStorage("userCity", cityCookie);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    setUserCity(userCity);
+  }, [userCity, setUserCity]);
 
   return (
     <header className="bg-white py-6 md:border-b lg:border-agray">
@@ -62,11 +68,11 @@ const Header: FC<IHeaderProps> = ({ cityCookie }) => {
                 </svg>
 
                 <span className="font-medium leading-[22px] hover:text-ared">
-                  {cityCookie}
+                  {userCity}
                 </span>
               </div>
 
-              <CityConfirmPopup maybeCity={cityCookie} />
+              <CityConfirmPopup setIsOpenModal={setIsOpenModal} />
             </div>
             <Link
               href="tel:+7(4942)36-00-61"
@@ -81,8 +87,8 @@ const Header: FC<IHeaderProps> = ({ cityCookie }) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M17.6715 16.3329C17.5519 16.452 17.4078 16.6044 17.255 16.7655C16.8736 17.1703 16.3971 17.6734 16.0985 17.8775C14.5274 18.9511 12.4254 18.4374 10.9386 17.8179C8.97727 17.0007 6.8419 15.4944 4.92457 13.5768C3.00544 11.6591 1.49927 9.52303 0.682053 7.56281C0.0632974 6.07569 -0.4515 3.97333 0.622286 2.40183C0.826194 2.103 1.33052 1.62729 1.73475 1.24518C1.89647 1.09281 2.04764 0.948843 2.16717 0.829698C2.37938 0.618539 2.66657 0.5 2.96594 0.5C3.26531 0.5 3.55251 0.618539 3.76472 0.829698L6.65557 3.71971C6.86661 3.93191 6.98508 4.21902 6.98508 4.5183C6.98508 4.81759 6.86661 5.1047 6.65557 5.3169L5.86806 6.10283C5.60507 6.3639 5.4334 6.70292 5.37861 7.06943C5.32382 7.43594 5.38884 7.81034 5.564 8.13691C6.64716 10.1813 8.31937 11.8532 10.3639 12.936C10.6904 13.1111 11.0648 13.1761 11.4312 13.1212C11.7976 13.0663 12.1364 12.8945 12.3973 12.6315L13.1829 11.8455C13.3951 11.6343 13.6823 11.5158 13.9817 11.5158C14.281 11.5158 14.5682 11.6343 14.7804 11.8455L17.6715 14.736C17.8825 14.9481 18.001 15.2352 18.001 15.5344C18.001 15.8337 17.8825 16.1207 17.6715 16.3329Z"
                   fill="#E2061A"
                 />
@@ -95,7 +101,7 @@ const Header: FC<IHeaderProps> = ({ cityCookie }) => {
           </div>
 
           <div className="flex items-center border border-border2 rounded-[10px]">
-            <Link className="p-3" href="/">
+            <Link className="p-3" href="/favorits">
               <svg
                 className="w-[22px] h-[22px]"
                 width="22"
