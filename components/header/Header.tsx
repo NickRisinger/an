@@ -10,6 +10,8 @@ interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ cityCookie }) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
   return (
     <header className="bg-white py-6 md:border-b lg:border-agray">
       <div className="container">
@@ -39,7 +41,10 @@ const Header: FC<IHeaderProps> = ({ cityCookie }) => {
               </svg>
             </Link>
             <div className="relative">
-              <div className="flex items-center gap-x-[10px] cursor-pointer">
+              <div
+                onClick={() => setIsOpenModal(true)}
+                className="flex items-center gap-x-[10px] cursor-pointer"
+              >
                 <svg
                   className="w-[9px] h-3 lg:w-[13px] lg:h-[19px]"
                   width="13"
@@ -108,7 +113,8 @@ const Header: FC<IHeaderProps> = ({ cityCookie }) => {
           </div>
         </div>
       </div>
-      <CitySelectionModal />
+
+      <CitySelectionModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} />
     </header>
   );
 };
