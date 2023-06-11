@@ -1,9 +1,14 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import { cookies } from "next/headers";
 
-export default function Home() {
-  const cookieStore = cookies();
-  const city = cookieStore.get("city");
+export const metadata: Metadata = {
+  title: "Квартиры АН Арбат в Костроме | Продажа недвижимости, риэлторы",
+  description:
+    "АН Арбат в Костроме продажа квартир, коттеджей, земельных участка. Купить квартиру в новостройках в АН Арбат. Сопровождение сделки, гарантия чистоты. Только проверенные объекты.",
+  keywords: "Квартиры АН Арбат в Костроме | Продажа недвижимости, риэлторы",
+};
 
-  return <main className="">{city?.value}</main>;
+export default function Home() {
+  return <main className="">Main</main>;
 }
